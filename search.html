@@ -1,0 +1,120 @@
+---
+layout: page
+title: Search
+tagline: 全站搜索
+permalink: /search/
+header: Posts By Tag
+group: navigation
+---
+
+<div class="col-md-12 search">
+    <div id="search_logo" class="row">
+        <style>
+            .bs-docs-booticon-outline {
+                background-color: transparent;
+                border: 1px solid #0084B4;
+                background: linear-gradient(to bottom,#0084B4 0,#0084B4 100%);
+                width: 90px;
+                height: 90px;
+                font-size: 85px;
+                line-height: 90px;
+                margin: 20px auto;
+            }
+        </style>
+        <span class="bs-docs-booticon bs-docs-booticon-outline">X</span>
+    </div>
+    <div class="input-group col-md-6 col-md-push-3">
+        <input id="query" type="text" class="clear-border-radius form-control" 
+          placeholder="标题、标签、URL或内容（支持正则表达式）" onkeydown='if(event.keyCode==13){jump2result();}'/>
+        <span class="input-group-btn">
+            <button id="searchBut" type="submit" class="clear-border-radius btn btn-blog btn-search"
+              onclick="jump2result()">
+              <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 全站搜索
+            </button>
+        </span>
+    </div>
+</div>
+
+<div id="result" class="col-md-12">
+    <div style="height: 340px;"></div>
+</div>
+
+<script type="text/javascript">
+    function startSearch(searchPattern, ajaxResult){
+        var output="";
+        var reg = new RegExp(searchPattern,"im");
+        var dataJson = eval("(" + ajaxResult + ")");
+
+        for (var i=0;i<dataJson.length;i++){
+            var title = dataJson[i].title;
+            var tags = dataJson[i].tags;
+            var url = dataJson[i].url;
+            var content = dataJson[i].content;
+            if (reg.test(title+tags+url+content)){
+                var item = '';
+                item = "<h3><a href='"+url+"'>" + title + "</a></h3><p>标签： " + tags + "</p><p>" + content.substr(0,254) + " ...</p>";
+                output += item;
+            }
+        }
+        if (output === ""){
+            output = '<h3>很抱歉，没有找到与<code>' + searchPattern + '</code>相关的网页。</h3>'
+            output += '<div class="bs-callout bs-callout-info" id="callout-alerts-no-default">'
+            output += '  <h4>温馨提示：</h4>'
+            output += '  <p>1. 请检查您的输入是否正确</p>'
+            output += '  <p>2. 建议进入<a href="../tags/"> Tags 页面 </a>，使用<code>ctrl + f</code>搜索相关tag。</p>'
+            output += '  <p>3. 如有任何意见或建议，请及时反馈给我</p>'
+            output += '</div>'
+            output += '<div style="height: 240px;"></div>'
+        }
+        document.getElementById('search_logo').style.display = 'none';
+        document.getElementById("result").innerHTML=output;
+
+        var base_url = window.location.href.split('?')[0];
+        var stateObject = {};
+        var title = "";
+        history.pushState(stateObject, title, base_url + "?query=" + searchPattern);
+    }
+
+    function doSearch(searchPattern){
+        if (window.XMLHttpRequest){
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }else{
+            // code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){
+            if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                startSearch(searchPattern, xmlhttp.responseText);
+            }
+        }
+        xmlhttp.open("GET", "/search.json",true);
+        xmlhttp.send();
+        xmlhttp.onerror = function(data){console.log("ajax errrorr")};
+    }
+
+    function jump2result(){
+        var searchPattern = "";
+        searchPattern = document.getElementById("query").value;
+        if (searchPattern === ""){
+            return;
+        }
+
+        doSearch(searchPattern);
+    }
+
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+
+    var query = GetQueryString("query");
+    if(query !=null && query.toString().length > 1)
+    {
+        document.getElementById("query").value = query;
+       doSearch(query);
+    }
+
+</script>

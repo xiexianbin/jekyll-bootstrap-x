@@ -1,13 +1,55 @@
 ---
-layout: default
-title: Your New Jekyll Site
+layout: page
+title: 谢先斌的博客
+tagline: 
+is_page: true
 ---
+{% include JB/setup %}
 
-<div id="home">
-  <h1>Blog Posts</h1>
+<div class="col-md-9 clear-padding" role="main">
   <ul class="posts">
-    {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% for post in paginator.posts %}
+      <li class="modal-open">
+        <h2 class="title">
+          <a href="{{ BASE_PATH }}{{ post.url }}" target="_blank">{{ post.title }}</a>
+        </h2>
+        <a href="{{ post.url | prepend: site.baseurl }}" target="_blank">
+        {% if post.excerpt contains "blockquote" %}
+          {{ post.excerpt }}
+        {% elsif post.description != null %}
+          <blockquote>
+            <p>{{ post.description }}</p>
+          </blockquote>
+        {% elsif post.title != null %}
+          <blockquote>
+            <p>{{ post.title }}</p>
+          </blockquote>
+        {% else %}
+          <blockquote>
+            <p>No blockquote/description/title Found.</p>
+          </blockquote>
+        {% endif %}
+        </a>
+        <h4>
+          <span class="pull-left date">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <span class="pull-right">
+          {% for cg in post.tags %}
+            <a href="{{ BASE_PATH }}{{ site.JB.tags_path }}#{{cg}}-ref">{{cg}}</a>
+            {% if forloop.index < forloop.length %},{% endif %}
+          {% endfor %}
+          </span>
+        </h4>
+      </li>
     {% endfor %}
   </ul>
+
+  {% include JB/page_plugin %}
+
 </div>
+<div class="col-md-3" role="complementary">
+  {% assign categories_list = site.categories %}
+  {% include JB/categories_blog_list %}
+  <div class="bs-docs-sidebar">
+    {% include JB/recent_articles_list %}
+  </div>
+<div>

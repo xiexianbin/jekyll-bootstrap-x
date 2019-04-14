@@ -1,0 +1,19 @@
+---
+# Remember to set production_url in your _config.yml file!
+title : Sitemap
+---
+<?xml version="1.0" encoding="utf-8"?>
+<sitemapindex>
+  {% for page in site.pages %}
+  <sitemap>
+    <loc>{{site.production_url}}{{ page.url }}</loc>
+    <lastmod>{{ site.time | date: '%Y-%m-%d' }}</lastmod>
+  </sitemap>
+  {% endfor %}
+  {% for post in site.posts %}
+  <sitemap>
+    <loc>{{site.production_url}}{{ post.url }}</loc>
+    <lastmod>{{ post.date | date: '%Y-%m-%d' }}</lastmod>
+  </sitemap>
+  {% endfor %}
+</sitemapindex>

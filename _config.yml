@@ -1,3 +1,240 @@
-name: Your New Jekyll Site
-markdown: redcarpet
-pygments: true
+# This is the default format.
+# For more see: http://jekyllrb.com/docs/permalinks/
+permalink: /:categories/:year/:month/:day/:title.html
+
+# Handling Reading
+exclude:      [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "ChangeLog.md"]
+keep_files:   [".git", ".svn"]
+encoding:     "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+# Filtering Content
+show_drafts: null
+limit_posts: 0
+future:      false
+unpublished: false
+
+# Plugins
+whitelist: []
+plugins_dir: [jekyll-paginate]
+plugins: [jekyll-paginate]
+
+# Page variables
+paginate : 10
+paginate_path : "blog/:num"
+
+# Conversion
+# https://help.github.com/articles/migrating-your-pages-site-from-maruku
+markdown:    kramdown
+highlighter: rouge
+lsi:         false
+excerpt_separator: "\n\n"
+incremental: true
+
+# Serving
+detach:  false
+port:    8080
+host:    0.0.0.0
+baseurl: "" # does not include hostname
+show_dir_listing: false
+
+# Outputting
+timezone:      null
+
+quiet:    false
+verbose:  false
+defaults: []
+
+liquid:
+  error_mode: warn
+
+# Markdown Processors
+rdiscount:
+  extensions: []
+
+redcarpet:
+  extensions: ["tables"]
+
+# repository
+repository: xiexianbin/xiexianbin.github.io
+
+# Themes are encouraged to use these universal variables
+# so be sure to set them if your theme uses them.
+#
+title : 谢先斌的博客
+tagline: Site Tagline
+author :
+  name : 谢先斌
+  email : me@xiexianbin.cn
+  sina_weibo : hixxb
+  sina_blog : hixxb
+  github : xiexianbin
+  twitter : xiexianbin
+  qq : 10972072
+  wechat : hixiexianbin
+  facebook : xiexianbin
+  twitter : xiexianbin
+  keybase : xiexianbin
+
+# The production_url is only used when full-domain names are needed
+# such as sitemap.txt
+# Most places will/should use BASE_PATH to make the urls
+#
+# If you have set a CNAME (pages.github.com) set your custom domain here.
+# Else if you are pushing to username.github.io, replace with your username.
+# Finally if you are pushing to a GitHub project page, include the project name at the end.
+#
+production_url : https://jekyll-bootstrap-x.xiexianbin.cn
+
+# All Jekyll-Bootstrap specific configurations are namespaced into this hash
+#
+JB :
+  #version : 0.3.0
+
+  # All links will be namespaced by BASE_PATH if defined.
+  # Links in your website should always be prefixed with {{BASE_PATH}}
+  # however this value will be dynamically changed depending on your deployment situation.
+  #
+  # CNAME (http://yourcustomdomain.com)
+  #   DO NOT SET BASE_PATH
+  #   (urls will be prefixed with "/" and work relatively)
+  #
+  # GitHub Pages (http://username.github.io)
+  #   DO NOT SET BASE_PATH
+  #   (urls will be prefixed with "/" and work relatively)
+  #
+  # GitHub Project Pages (http://username.github.io/project-name)
+  #
+  #   A GitHub Project site exists in the `gh-pages` branch of one of your repositories.
+  #  REQUIRED! Set BASE_PATH to: http://username.github.io/project-name
+  #
+  # CAUTION:
+  #   - When in Localhost, your site will run from root "/" regardless of BASE_PATH
+  #   - Only the following values are falsy: ["", null, false]
+  #   - When setting BASE_PATH it must be a valid url.
+  #     This means always setting the protocol (http|https) or prefixing with "/"
+  BASE_PATH : false
+
+  # By default, the asset_path is automatically defined relative to BASE_PATH plus the enabled theme.
+  # ex: [BASE_PATH]/assets
+  #
+  # Override this by defining an absolute path to assets here.
+  # ex:
+  #   http://s3.amazonaws.com/yoursite/themes/watermelon
+  #   /assets
+  #
+  # ASSET_PATH : https://cn-cdn.xiexianbin.cn/assets
+  ASSET_PATH : /assets
+
+  # These paths are to the main pages Jekyll-Bootstrap ships with.
+  # Some JB helpers refer to these paths; change them here if needed.
+  #
+  archive_path: /archive/index.html
+  categories_path : /categories/index.html
+  tags_path : /tags/index.html
+  ci_path : /ci/
+  atom_path : /atom.xml
+  rss_path : /rss.xml
+
+  # Settings for comments helper
+  # Set 'provider' to the comment provider you want to use.
+  # Set 'provider' to false to turn commenting off globally.
+  #
+  comments :
+    # provider : changyan
+    provider :
+    disqus :
+      short_name : 
+    livefyre :
+      site_id : 
+    intensedebate :
+      account : 
+    facebook :
+      appid : 
+      num_posts: 
+      width: 
+      colorscheme: 
+    duoshuo :
+      short_name :
+    changyan :
+      appid :
+      conf :
+
+  # Settings for analytics helper
+  # Set 'provider' to the analytics provider you want to use.
+  # Set 'provider' to false to turn analytics off globally.
+  #
+  analytics :
+    provider : baidu,cnzz
+    baidu :
+        baidu_site_uuid : 'ba7d9ba979d7c12abbe711c052e11233'
+    cnzz :
+        site_id: '1276166636'
+    google :
+        tracking_id : ''
+    googleUA :
+        tracking_id : 'UA-***'
+        property_name : 'PROPERTY NAME'
+    getclicky :
+      site_id : 
+    mixpanel :
+        token : '_MIXPANEL_TOKEN_'
+    piwik :
+        baseURL : 'myserver.tld/piwik' # Piwik installation address (without protocol)
+        idsite : '1'                   # the id of the site on Piwik
+
+  # Settings for seo helper.
+  seo :
+    provider :
+    baidu :
+      site : ''
+
+  # Settings for sharing helper.
+  # Sharing is for things like tweet, plusone, like, reddit buttons etc.
+  # Set 'provider' to the sharing provider you want to use.
+  # Set 'provider' to false to turn sharing off globally.
+  #
+  sharing :
+    provider : baidu
+    baidu :
+      picture : '/img/xiexianbin-persion.jpg'
+
+  # Settings for all other include helpers can be defined by creating
+  # a hash with key named for the given helper. ex:
+  #
+  #   pages_list :
+  #     provider : "custom"
+  #
+  # Setting any helper's provider to 'custom' will bypass the helper code
+  # and include your custom code. Your custom file must be defined at:
+  #   ./_includes/custom/[HELPER]
+  # where [HELPER] is the name of the helper you are overriding.
+
+sass:
+  style: compressed
+
+# http://jch.penibelst.de/
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+  ignore:
+    envs: []
+
+# CDN Information
+cdn :
+  url : 'https://cn-cdn.xiexianbin.cn'
+
+# Blog some static variables
+BLOG :
+  static :
+    record : '豫ICP备14020342号-3'
+
+# SEO information variables
+SEO :
+  title :
+     谢先斌的博客
+  description :
+    谢先斌的博客，从事云计算、容器相关工作。致力于以博客的形式，为技术开发人员提供分享和交流的平台，将自己所学、所见、所感和所知分享给大家。
+  keywords :
+    谢先斌,博客,云计算,容器,docker,openstack,kubernetes,kolla,centos,linux,安装,iperf
