@@ -1,0 +1,9 @@
+{%- assign providers = site.JB.seo.provider | split:',' -%}
+{%- for provider in providers -%}
+  {%- case provider -%}
+    {%- when "baidu" -%}
+      {%- include JB/seo-providers/baidu -%}
+    {%- when "custom" -%}
+      {%- include custom/seo -%}
+  {%- endcase -%}
+{%- endfor -%}

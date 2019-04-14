@@ -1,0 +1,96 @@
+  <nav>
+  <ul class="pagination">
+    {% if paginator.previous_page %}
+      <li>
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}/index.html" aria-label="Previous">
+        <span aria-hidden="true">上一页</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="disabled">
+        <a href="javascript:void(0);" aria-label="Previous">
+        <span aria-hidden="true">上一页</span>
+        </a>
+      </li>
+    {% endif %}
+
+    {% assign total_show_page = 9 %}
+    {% assign start_page = paginator.page | minus: 4 %}
+    {% assign end_page = paginator.page | plus: 4 %}
+    {% if paginator.total_pages < total_show_page %}
+      {% assign start_page = 1 %}
+      {% assign end_page = paginator.total_pages %}
+    {% elsif start_page < 5 %}
+      {% assign start_page = 1 %}
+      {% assign end_page = 9 %}
+    {% elsif start_page < 1 %}
+      {% assign delta = 1 - start_page %}
+      {% assign start_page = 1 %}
+      {% assign end_page = end_page | plus: delta %}
+    {% elsif end_page > paginator.total_pages %}
+      {% assign delta = end_page - paginator.total_pages %}
+      {% assign end_page = paginator.total_pages %}
+      {% assign start_page = start_page -9 %}
+    {% elsif end_page > paginator.total_pages - 4 %}
+      {% assign start_page = paginator.total_pages - 9 %}
+      {% assign end_page = paginator.total_pages %}
+    {% endif %}
+
+    {% if start_page > 4 %}
+        <li>
+          <a href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}">1</a>
+        </li>
+        <li class="disabled">
+            <a href="javascript:void(0);" aria-label="Previous">
+            <span aria-hidden="true">...</span>
+            </a>
+        </li>
+    {% endif %}
+
+    {% for page in (start_page..end_page) %}
+      {% if page == paginator.page %}
+        <li class="active">
+          <a href="#">{{ page }} <span class="sr-only">(current)</span></a>
+        </li>
+      {% elsif page == 1 %}
+        <li>
+          <a href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}/index.html">{{ page }}</a>
+        </li>
+      {% else %}
+        <li>
+          <a href="/blog/{{ page }}/index.html">{{ page }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if end_page < paginator.total_pages - 4 %}
+        <li class="disabled">
+            <a href="javascript:void(0);" aria-label="Previous">
+            <span aria-hidden="true">...</span>
+            </a>
+        </li>
+        <li>
+          <a href="/blog/{{ paginator.total_pages }}/index.html">{{ paginator.total_pages }}</a>
+        </li>
+    {% endif %}
+
+    {% if paginator.next_page %}
+      <li>
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}/index.html" aria-label="Next">
+          <span aria-hidden="true">下一页</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="disabled">
+        <a href="javascript:void(0);" aria-label="Next">
+          <span aria-hidden="true">下一页</span>
+        </a>
+      </li>
+    {% endif %}
+
+    {% assign total_show_page = nil %}
+    {% assign start_page = nil %}
+    {% assign end_page = nil %}
+    <span class="page-num">&nbsp;&nbsp;第&nbsp;{{ paginator.page }}&nbsp;页&nbsp;&nbsp;共&nbsp;{{ paginator.total_pages }}&nbsp;页&nbsp;共&nbsp;{{ paginator.total_posts }}&nbsp;博文</span>
+  </ul>
+  </nav>

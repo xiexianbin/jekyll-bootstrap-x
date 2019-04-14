@@ -1,0 +1,10 @@
+{%- if site.JB.sharing.provider -%}
+
+{%- case site.JB.sharing.provider -%}
+{%- when "baidu" -%}
+  {%- include JB/shares-providers/baidu -%}
+{%- when "custom" -%}
+  {%- include custom/sharing -%}
+{%- endcase -%}
+
+{%- endif -%}

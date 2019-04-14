@@ -1,0 +1,21 @@
+{%- assign providers = site.JB.analytics.provider | split:',' -%}
+{%- for provider in providers -%}
+  {%- case provider -%}
+    {%- when "baidu" -%}
+      {%- include JB/analytics-providers/baidu -%}
+    {%- when "cnzz" -%}
+      {%- include JB/analytics-providers/cnzz -%}
+    {%- when "google" -%}
+      {%- include JB/analytics-providers/google -%}
+    {%- when "googleUA" -%}
+      {%- include JB/analytics-providers/googleUA -%}
+    {%- when "getclicky" -%}
+      {%- include JB/analytics-providers/getclicky -%}
+    {%- when "mixpanel" -%}
+      {%- include JB/analytics-providers/mixpanel -%}
+    {%- when "piwik" -%}
+      {%- include JB/analytics-providers/piwik -%}
+    {%- when "custom" -%}
+      {%- include custom/analytics -%}
+  {%- endcase -%}
+{%- endfor -%}

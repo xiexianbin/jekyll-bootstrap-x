@@ -1,0 +1,235 @@
+<!--
+     _  __ _         _  __ _             __    _     
+    | |/ /(_)__     | |/ /(_)___ _____  / /_  (_)___ 
+    |   // / _ \    |   // / __ `/ __ \/ __ \/ / __ \
+   /   |/ /  __/   /   |/ / /_/ / / / / /_/ / / / / /
+  /_/|_/_/\___/   /_/|_/_/\__,_/_/ /_/_.___/_/_/ /_/ 
+
+  ===================================================
+                                       xiexianbin.cn
+
+  - Jekyll:    3.6.2
+  - Ruby:      2.4.2
+  - Kramdown:  1.16.2
+  - Liquid:    1.16.2
+  - blog:      2.0.2
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    {%- if page.is_page != null %}
+      {%- if paginator.page == 1 %}
+    <title>首页_{{ site.SEO.title }}</title>
+      {%- else %}
+    <title>第{{ paginator.page }}页_{{ site.SEO.title }}</title>
+      {%- endif %}
+    {%- elsif site.SEO.title contains page.title %}
+    <title>{{ site.SEO.title }}</title>
+    {%- else %}
+    <title>{{ page.title }}_{{ site.SEO.title }}</title>
+    {%- endif %}
+
+    <meta name="author" content="{{ site.author.name }}">
+    {%- if page.description != null %}
+    <meta name="description" content="{{ page.description }}_{{ site.SEO.title }}">
+    {%- elsif page.excerpt != null and page.excerpt != '' %}
+    <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | replace:' ', '' | truncate:170 }}">
+    {% elsif page.is_page != null %}
+      {%- if paginator.page == 1 %}
+    <meta name="description" content="首页_{{ site.SEO.title }}">
+      {%- else %}
+    <meta name="description" content="第{{ paginator.page }}页_{{ site.SEO.title }}">
+      {%- endif %}
+    {%- else %}
+    <meta name="description" content="{{ site.SEO.description }}">
+    {%- endif %}
+
+    {%- if page.keywords != null %}
+    <meta name="keywords" content="{{ page.title }},{{ page.category }},{{ page.keywords | join: ","  }}">
+    {%- elsif page.tags != null %}
+    <meta name="keywords" content="{{ page.title }},{{ page.tags | join: "," }}">
+    {%- elsif page.category != null %}
+    <meta name="keywords" content="{{ page.title }},{{ page.category }}">
+    {%- else %}
+    <meta name="keywords" content="{{ page.title }},{{ site.SEO.keywords }}">
+    {%- endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{{ ASSET_PATH }}/github.com/twbs/bootstrap/v3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ ASSET_PATH }}/github.com/xiexianbin/xiexianbin.github.io/assets/blog/css/bootstrap.docs.min.css" rel="stylesheet" />
+    <link href="{{ ASSET_PATH }}/github.com/xiexianbin/xiexianbin.github.io/assets/blog/css/blog.css" rel="stylesheet" />
+
+    <script src="{{ ASSET_PATH }}/common/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="{{ ASSET_PATH }}/github.com/aFarkas/html5shiv/3.7.3/dist/html5shiv.min.js"></script>
+      <script src="{{ ASSET_PATH }}/github.com/scottjehl/Respond/1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="{{ BASE_PATH }}{{ site.JB.atom_path }}" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed" />
+    <link href="{{ BASE_PATH }}{{ site.JB.rss_path }}" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed" />
+
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png" />
+    <link rel="icon" href="/img/logo.36x36.png" />
+
+    <link rel="canonical" href="{{site.production_url}}{{page.url}}"/>
+    <script type="application/ld+json">
+      {
+          "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+          "@id": "{{site.production_url}}{{page.url}}",
+          "appid": "1592072677685149",
+          {%- if page.is_page != null %}
+            {%- if paginator.page == 1 %}
+          "title": "首页_{{ site.SEO.title }}",
+            {%- else %}
+          "title": "第{{ paginator.page }}页_{{ site.SEO.title }}",
+            {%- endif %}
+          {%- elsif site.SEO.title contains page.title %}
+          "title": "{{ site.SEO.title }}",
+          {%- else %}
+          "title": "{{ page.title }}_{{ site.SEO.title }}",
+          {%- endif %}
+          {%- if page.description %}
+          "description": "{{ page.description }}",
+          {%- elsif page.excerpt %}
+          "description": "{{ page.excerpt | strip_html | strip_newlines | truncate:170 }}",
+          {%- elsif page.is_page != null %}
+            {%- if paginator.page == 1 %}
+          "description": "首页_{{ site.SEO.title }}",
+            {%- else %}
+          "description": "第{{ paginator.page }}页_{{ site.SEO.title }}",
+            {%- endif %}
+          {%- else %}
+          "description": "{{ page.title }} {{ site.SEO.description }}",
+          {%- endif %}
+          {%- if page.date %}
+          "pubDate": "{{ page.date | date: '%Y-%m-%dT00:00:00' }}",
+          "upDate": "{{ page.date | date: '%Y-%m-%dT00:00:00' }}",
+          "lrDate": "{{ page.date | date: '%Y-%m-%dT00:00:00' }}"
+          {%- else %}
+          "pubDate": "{{ 'now' | date: '%Y-%m-%dT00:00:00' }}",
+          "upDate": "{{ 'now' | date: '%Y-%m-%dT00:00:00' }}",
+          "lrDate": "{{ 'now' | date: '%Y-%m-%dT00:00:00' }}"
+          {%- endif %}
+      }
+    </script>
+    <script src="//xiongzhang.baidu.com/sdk/c.js?appid=1592072677685149"></script>
+  </head>
+
+  <body class="alipaycode">
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            {% assign pages_list = site.pages %}
+            {% assign group = 'navigation' %}
+            {% include JB/pages_list %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> More <b class="caret"></b></a>
+              <ul class="dropdown-menu nav subnavbar-nav">
+                <li><a href="/ci/" target="_blank">CI</a></li>
+                <li class="divider"></li>
+                <li><a href="http://tools.xiexianbin.cn/" target="_blank">Tools</a></li>
+                <li><a href="http://docs.xiexianbin.cn/" target="_blank">Docs</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      {{ content }}
+      <footer class="footer clear">
+        <div class="col-lg-12 clear">
+          <div class="row footer-top">
+            <div class="col-sm-6 col-lg-6">
+              <h4>
+                XieXianbin Blog
+                <!--<span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline" style="background-color: #0084b4;">X</span>-->
+              </h4>
+              <p>本网站所有Blog全部由<a href="{{ site.production_url }}" target="_blank">作者</a>整理总结，并全部遵循 <a href="https://github.com/xiexianbin/jekyll-bootstrap-x/blob/master/LICENSE" target="_blank">CC BY 3.0</a>协议发布。</p>
+            </div>
+            <div class="col-sm-6 col-lg-5 col-lg-offset-1">
+              <div class="row about">
+                <div class="col-xs-3">
+                  <h4>关于</h4>
+                  <ul class="list-unstyled">
+                    <li><a href="/about/" target="_blank">关于本人</a></li>
+                    <li><a href="https://github.com/xiexianbin" rel="external nofollow" target="_blank">Github</a></li>
+                  </ul>
+                </div>
+                <div class="col-xs-3">
+                  <h4>联系方式</h4>
+                  <ul class="list-unstyled">
+                    <li><a href="https://keybase.io/{{ site.author.keybase }}" rel="external nofollow" title="xiexianbin's Keybase" target="_blank">Keybase</a></li>
+                    <li><a href="http://weibo.com/{{ site.author.sina_weibo }}" rel="external nofollow" title="谢先斌的个人微博" target="_blank">新浪微博</a></li>
+                    <li><a href="http://blog.sina.com.cn/{{ site.author.sina_blog }}" rel="external nofollow" title="谢先斌的个人博客" target="_blank">新浪博客</a></li>
+                  </ul>
+                </div>
+                <div class="col-xs-3">
+                  <h4>网站</h4>
+                  <ul class="list-unstyled">
+                    <li><a href="http://80.xyz" target="_blank">80.xyz</a></li>
+                    <li><a href="http://yaochi.xyz" target="_blank">yaochi.xyz</a></li>
+                    <li><a href="http://www.yumi.info" rel="external nofollow" target="_blank">yumi.info</a></li>
+                  </ul>
+                </div>
+                <div class="col-xs-3">
+                  <h4>站内链接</h4>
+                  <ul class="list-unstyled">
+                    <li><a href="/links/">友链</a></li>
+                    <li><a href="/logo/" target="_blank">LOGO</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row footer-bottom border-top">
+            <ul class="list-unstyled text-left">
+              <li>Copyright &copy; 2012-{{ site.time | date: '%Y' }} xiexianbin.cn All rights reserved. </li>
+              <li>Design and Developed by <a href="https://github.com/xiexianbin/jekyll-bootstrap-x">jekyll-bootstrap-x</a></li>
+              <li>
+                <a href="http://www.miibeian.gov.cn/" target="_blank">{{ site.BLOG.static.record }}</a>
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41142302000111" rel="external nofollow" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                  <img src="{{ site.cdnurl }}/img/beian_logo.png" style="float:left;" alt="beian logo"/> 豫公网安备 41142302000111号
+                </a>
+              </li>
+              <li>联系邮箱：me@xiexianbin.cn</li>
+              <li>
+                <a href="https://github.com/{{ site.repository }}/blob/master/{{ page.path }}" rel="external nofollow" target="_blank" style="color: white;">Edit this page</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="{{ ASSET_PATH }}/github.com/jquery/jquery/1.12.4/dist/jquery.min.js"></script>
+    <script src="{{ ASSET_PATH }}/github.com/twbs/bootstrap/v3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="{{ ASSET_PATH }}/github.com/imsky/holder/v2.8.0/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ ASSET_PATH }}/common/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{{ ASSET_PATH }}/github.com/xiexianbin/xiexianbin.github.io/assets/menu/blog.nav.menu.js"></script>
+
+    <script src="{{ ASSET_PATH }}/github.com/zenorocha/clipboard.js/v1.7.1/dist/clipboard.min.js" type="text/javascript"></script>
+    <script src="{{ ASSET_PATH }}/github.com/xiexianbin/clipboard-alipay/js/alipay.js" type="text/javascript"></script>
+{% include JB/analytics %}
+{% include JB/seo %}
+
+  </body>
+</html>

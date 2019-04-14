@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>
+    {%- if page.is_page != null -%}
+      {%- if paginator.page == 1 -%}
+                首页_{{ page.title }}
+      {%- else -%}
+                第{{ paginator.page }}页_{{ page.title }}
+      {%- endif -%}
+    {%- else -%}
+      {{ page.title }}
+    {%- endif -%}
+    {%- if page.tagline -%}
+      <small>{{ page.tagline }}</small>
+    {%- endif -%}
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+      {{ content }}
+  </div>
+</div>
