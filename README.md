@@ -2,9 +2,8 @@
 Jekyll-bootstrap-x
 ============================
 
-[![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/xiexianbin/xiexianbin.github.io/blob/master/LICENSE)
+[![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/xiexianbin/jekyll-bootstrap-x/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/xiexianbin/jekyll-bootstrap-x.svg?branch=master)](https://travis-ci.org/xiexianbin/jekyll-bootstrap-x)
-[![CodeShip Build Status](https://codeship.com/projects/b2a453f0-f301-0133-2881-16a4a456a383/status?branch=master)](https://codeship.com/projects/149646)
 
 
 This [blog](https://xiexianbin.cn) is a personal website built by GitPage, which writes about life and work.
@@ -32,4 +31,4 @@ This [blog](https://xiexianbin.cn) is a personal website built by GitPage, which
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+[MIT](https://github.com/xiexianbin/jekyll-bootstrap-x/blob/master/LICENSE)
